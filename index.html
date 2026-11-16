@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabzy</title>
+    <link rel="stylesheet" href="./src/tabzy.css" />
+  </head>
+  <body>
+    <h1>Tabzy</h1>
+    <!-- Container -->
+    <ul id="tabs">
+      <!-- Tabs -->
+      <li><a href="#tab-1">Tab 1</a></li>
+      <li><a href="#tab-2">Tab 2</a></li>
+      <li><a href="#tab-3">Tab 3</a></li>
+    </ul>
+
+    <!-- Panels -->
+    <div id="tab-1" class="tab">Tab 1 Content</div>
+    <div id="tab-2" class="tab">Tab 2 Content</div>
+    <div id="tab-3" class="tab">Tab 3 Content</div>
+    <script src="./src/tabzy.js"></script>
+
+    <!-- Demo -->
+    <script>
+      const tabs = new Tabzy("#tabs");
+    </script>
+  </body>
+</html>
