@@ -24,11 +24,9 @@
 
     <!-- Demo -->
     <script>
-      const tabs = new Tabzy("#tabs");
-
-      const tab2 = document.querySelector('a[href="#tab-2"]');
-
-      tabs.switch(tab2);
+      const tabs = new Tabzy("#tabs", {
+        remember: true,
+      });
     </script>
   </body>
 </html>

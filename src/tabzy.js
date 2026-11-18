@@ -1,4 +1,4 @@
-function Tabzy(selector) {
+function Tabzy(selector, options = {}) {
   this.container = document.querySelector(selector);
   if (!this.container) {
     return console.error(
@@ -24,13 +24,28 @@ function Tabzy(selector) {
 
   if (this.tabs.length !== this.panels.length) return;
 
+  this.opt = Object.assign(
+    {
+      remember: false,
+    },
+    options,
+  );
+
   this._originalHTML = this.container.innerHTML;
 
   this._init();
 }
 
 Tabzy.prototype._init = function () {
-  this._activateTab(this.tabs[0]);
+  // if this.opt.remember?
+  const hash = location.hash;
+  const tab =
+    (this.opt.remember &&
+      hash &&
+      this.tabs.find((tab) => tab.getAttribute("href") === hash)) ||
+    this.tabs[0];
+
+  this._activateTab(tab);
 
   this.tabs.forEach((tab) => {
     tab.onclick = (e) => {
@@ -50,12 +65,19 @@ Tabzy.prototype._activateTab = function (tab) {
     tab.closest("li").classList.remove("tabzy--active"),
   );
 
+  if (!tab) {
+    return console.error(`Tabzy: No panel found for selector ${tab}`);
+  }
+
   tab.closest("li").classList.add("tabzy--active");
 
   this.panels.forEach((panel) => (panel.hidden = true));
 
   const panelActive = document.querySelector(tab.getAttribute("href"));
   panelActive.hidden = false;
+
+  if (this.opt.remember)
+    history.replaceState(null, null, tab.getAttribute("href"));
 };
 
 Tabzy.prototype.switch = function (input) {
