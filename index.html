@@ -20,11 +20,28 @@
     <div id="tab-1" class="tab">Tab 1 Content</div>
     <div id="tab-2" class="tab">Tab 2 Content</div>
     <div id="tab-3" class="tab">Tab 3 Content</div>
-    <script src="./src/tabzy.js"></script>
 
+    <!-- Container2 -->
+    <ul id="tabs2">
+      <!-- Tabs2 -->
+      <li><a href="#tab2-1">Tab 1</a></li>
+      <li><a href="#tab2-2">Tab 2</a></li>
+      <li><a href="#tab2-3">Tab 3</a></li>
+    </ul>
+
+    <!-- Panels2 -->
+    <div id="tab2-1" class="tab">Tab 1 Content</div>
+    <div id="tab2-2" class="tab">Tab 2 Content</div>
+    <div id="tab2-3" class="tab">Tab 3 Content</div>
+
+    <script src="./src/tabzy.js"></script>
     <!-- Demo -->
     <script>
       const tabs = new Tabzy("#tabs", {
+        remember: true,
+      });
+
+      const tabs2 = new Tabzy("#tabs2", {
         remember: true,
       });
     </script>
