@@ -27,6 +27,7 @@ function Tabzy(selector, options = {}) {
   this.opt = Object.assign(
     {
       remember: false,
+      onChange: null,
     },
     options,
   );
@@ -85,6 +86,13 @@ Tabzy.prototype._activateTab = function (tab) {
     const paramValue = tab.getAttribute("href").replace(/[^a-zA-Z0-9]/g, "");
     params.set(this.paramKey, paramValue);
     history.replaceState(null, null, `?${params}`);
+  }
+
+  if (typeof this.opt.onChange === "function") {
+    this.opt.onChange({
+      tab,
+      panel: panelActive,
+    });
   }
 };
 
