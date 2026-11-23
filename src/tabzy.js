@@ -58,7 +58,7 @@ Tabzy.prototype.destroy = function () {
   this.container = null;
   this.tabs = null;
   this.panels = null;
-  this._currentTab = null;
+  this.currentTab = null;
 };
 
 Tabzy.prototype._init = function () {
@@ -74,8 +74,8 @@ Tabzy.prototype._init = function () {
       )) ||
     this.tabs[0];
 
-  this._activateTab(tab, false);
-  this._currentTab = tab;
+  this.currentTab = tab;
+  this._activateTab(tab, false, false);
 
   this.tabs.forEach((tab) => {
     tab.onclick = (e) => {
@@ -98,7 +98,11 @@ Tabzy.prototype._getPanel = function () {
     .filter(Boolean);
 };
 
-Tabzy.prototype._activateTab = function (tab, triggerOnChange = true) {
+Tabzy.prototype._activateTab = function (
+  tab,
+  triggerOnChange = true,
+  updateURL = this.opt.remember,
+) {
   this.tabs.forEach((tab) =>
     tab.closest("li").classList.remove(this.opt.activeClassName),
   );
@@ -114,7 +118,7 @@ Tabzy.prototype._activateTab = function (tab, triggerOnChange = true) {
   const panelActive = document.querySelector(tab.getAttribute("href"));
   panelActive.hidden = false;
 
-  if (this.opt.remember) {
+  if (updateURL) {
     const params = new URLSearchParams(location.search);
     params.set(
       this.paramKey,
@@ -132,8 +136,8 @@ Tabzy.prototype._activateTab = function (tab, triggerOnChange = true) {
 };
 
 Tabzy.prototype._tryActivateTab = function (tab) {
-  if (this._currentTab !== tab) {
+  if (this.currentTab !== tab) {
+    this.currentTab = tab;
     this._activateTab(tab);
-    this._currentTab = tab;
   }
 };
